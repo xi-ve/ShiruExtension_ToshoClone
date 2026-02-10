@@ -34,12 +34,12 @@ export default new (class AnimeToshoClone extends AbstractSource {
 
   #map(entries, batch = false) {
     return entries.map(
-      ({ id, name, magnet, size, size_str, upload_date, source_url }) => ({
+      ({ id, name, magnet, size, size_str, upload_date, source_url, seeders = 0, leechers = 0 }) => ({
         title: name,
         link: magnet || source_url || '',
         id,
-        seeders: 0,
-        leechers: 0,
+        seeders: Math.min(seeders || 0, 29999),
+        leechers: Math.min(leechers || 0, 29999),
         downloads: 0,
         accuracy: 'medium',
         type: batch ? 'batch' : undefined,
