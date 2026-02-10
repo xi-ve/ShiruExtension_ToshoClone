@@ -2,7 +2,7 @@
   {
     "id": "animetosho-clone",
     "name": "Anime Tosho Clone",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "sources/animetosho-clone",
     "update": "gh:xi-ve/ShiruExtension_ToshoClone",
     "type": "torrent",
