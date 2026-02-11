@@ -1,6 +1,6 @@
 import AbstractSource from './abstract.js'
 
-const BASE_URL = 'https://api.kemotosho.xive.cc'
+const BASE_URL = 'https://kemotoshoapi.xive.cc'
 const QUALITIES = ['2160', '1080', '720', '540', '480']
 
 function magnetToInfoHashHex(magnet) {
