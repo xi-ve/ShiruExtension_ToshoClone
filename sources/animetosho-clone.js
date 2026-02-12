@@ -70,10 +70,13 @@ export default new (class AnimeToshoClone extends AbstractSource {
     )
   }
 
-  async #query(searchString, { resolution, exclusions, episodeCount, anidbAid }) {
+  async #query(searchString, { resolution, exclusions, episodeCount, anidbAid, episode }) {
     const params = new URLSearchParams({ per_page: '100' })
     if (anidbAid) {
       params.set('anidb_aid', String(anidbAid))
+    }
+    if (episode != null && episode > 0) {
+      params.set('episode_number', String(episode))
     }
     if (searchString) {
       params.set('search', searchString)
@@ -94,22 +97,22 @@ export default new (class AnimeToshoClone extends AbstractSource {
     return filtered.length ? this.#map(!episodeCount ? filtered : filtered.filter((t) => (t.file_count || 0) > 1)) : []
   }
 
-  async single({ titles, resolution, exclusions, anidbAid }) {
+  async single({ titles, resolution, exclusions, anidbAid, episode }) {
     if (!titles?.length && !anidbAid) throw new Error('No titles provided')
     const search = this.#buildSearchString(titles || [], exclusions)
-    return this.#query(search, { resolution, exclusions, anidbAid })
+    return this.#query(search, { resolution, exclusions, anidbAid, episode })
   }
 
-  async batch({ titles, resolution, episodeCount, exclusions, anidbAid }) {
+  async batch({ titles, resolution, episodeCount, exclusions, anidbAid, episode }) {
     if (!titles?.length && !anidbAid) throw new Error('No titles provided')
     const search = this.#buildSearchString(titles || [], exclusions)
-    return this.#query(search, { resolution, exclusions, episodeCount, anidbAid }, true)
+    return this.#query(search, { resolution, exclusions, episodeCount, anidbAid, episode }, true)
   }
 
-  async movie({ titles, resolution, exclusions, anidbAid }) {
+  async movie({ titles, resolution, exclusions, anidbAid, episode }) {
     if (!titles?.length && !anidbAid) throw new Error('No titles provided')
     const search = this.#buildSearchString(titles || [], exclusions)
-    return this.#query(search, { resolution, exclusions, anidbAid })
+    return this.#query(search, { resolution, exclusions, anidbAid, episode })
   }
 
   async validate() {
